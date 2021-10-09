@@ -1,0 +1,42 @@
+plugins {
+	id 'au.com.dius.pact' version '4.1.17'
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.example.todo-server'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.h2database:h2'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'au.com.dius.pact.provider:junit5spring:4.1.17'
+}
+
+test {
+	useJUnitPlatform()
+
+	testLogging {
+		events "PASSED", "SKIPPED", "FAILED", "STANDARD_OUT", "STANDARD_ERROR"
+	}
+
+	systemProperty 'pactbroker.auth.token', System.getenv('PACT_BROKER_TOKEN')
+	systemProperty 'pact.provider.version', '1.0.0'
+	systemProperty 'pact.verifier.publishResults', 'true'
+}

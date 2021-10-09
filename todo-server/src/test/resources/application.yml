@@ -1,0 +1,4 @@
+pactbroker:
+  host: ${PACT_BROKER_BASE_URL}
+  port: 443
+  scheme: https
