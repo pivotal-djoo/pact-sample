@@ -17,8 +17,6 @@ import org.junit.Test
 import java.io.IOException
 import java.net.ServerSocket
 import java.util.*
-import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeoutException
 
 @ExperimentalCoroutinesApi
 class AddToDoContractTest {
@@ -54,11 +52,6 @@ class AddToDoContractTest {
 
     @Test
     @PactVerification("To Do API")
-    @Throws(
-        InterruptedException::class,
-        ExecutionException::class,
-        TimeoutException::class
-    )
     fun addToDo_shouldReturn201() = runBlocking<Unit> {
         val newToDo = ToDo(null, "Pick up pickles", false)
         val toDo = subject?.addToDo(newToDo)

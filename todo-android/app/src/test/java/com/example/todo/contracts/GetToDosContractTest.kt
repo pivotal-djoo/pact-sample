@@ -16,8 +16,6 @@ import org.junit.Test
 import java.io.IOException
 import java.net.ServerSocket
 import java.util.*
-import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeoutException
 
 @ExperimentalCoroutinesApi
 class GetToDoContractTest {
@@ -52,11 +50,6 @@ class GetToDoContractTest {
 
     @Test
     @PactVerification("To Do API")
-    @Throws(
-        InterruptedException::class,
-        ExecutionException::class,
-        TimeoutException::class
-    )
     fun toDos_shouldReturnToDosList() = runBlocking<Unit> {
         val toDos = subject?.getToDos()
         assertThat(toDos).hasSize(2)
